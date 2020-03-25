@@ -25,7 +25,11 @@
 	font-size: 1.5vw;
 	line-height: 1.5;
 	color: #a4a4a4;
+
 	text-align: justify;
 	text-align-last: left;
+
+	user-select: none;
+	cursor: default;
 }
 </style>

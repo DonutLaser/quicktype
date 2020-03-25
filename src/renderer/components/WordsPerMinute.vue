@@ -21,9 +21,11 @@
     top: 75%;
     transform: translateX(-50%);
 
-
     font-family: Arial;
     font-weight: bold;
     font-size: 3.3vw;
+
+    user-select: none;
+    cursor: default;
   }
 </style>
