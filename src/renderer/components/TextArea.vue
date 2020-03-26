@@ -15,7 +15,7 @@
 
 				if (this.currentChar === 0) {
 					this.$emit('start');
-				} else if (this.currentChar === this.text.length) {
+				} else if (this.currentChar === this.text.length - 1) {
 					this.$emit('end');
 				}
 
