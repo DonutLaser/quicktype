@@ -1,44 +1,38 @@
 <template>
-  <div id="app">
-    <text-area @type="onType($event)" @start="onStartPractice()" @end="onEndPractice()"></text-area>
-    <words-per-minute :typed="typedCharacters" :enableTimer="isPracticing"></words-per-minute>
-  </div>
+    <div id="app">
+        <typing-page v-if="page === 'typing'"></typing-page>
+        <home-page v-if="page === 'home'"></home-page>
+    </div>
 </template>
 
 <script>
-	import TextArea from './components/TextArea.vue';
-  import WordsPerMinute from './components/WordsPerMinute.vue';
+    import TypingPage from './components/TypingPage.vue';
+    import HomePage from './components/HomePage.vue';
 
-  export default {
-    name: 'quicktype',
-    components: {
-      TextArea,
-      WordsPerMinute,
-    },
-    data: function () {
-      return {
-        typedCharacters: 0,
-        isPracticing: false,
-      };
-    },
-    methods: {
-      onType: function (typed) {
-        this.typedCharacters = typed;
-      },
-      onStartPractice: function () {
-        this.isPracticing = true;
-      },
-      onEndPractice: function () {
-        this.isPracticing = false;
-      }
-    }
-  };
+    // Use font-awesome icons in the project
+    import Vue from 'vue';
+    import "font-awesome/css/font-awesome.min.css";
+
+    Vue.component('VueFontawesome', require('vue-fontawesome-icon/VueFontawesome.vue').default);
+
+    export default {
+        name: 'quicktype',
+        components: {
+            TypingPage,
+            HomePage,
+        },
+        data: function () {
+            return {
+                page: 'home',
+            };
+        }
+    };
 </script>
 
 <style scoped>
 #app {
-  background-color: #141414;
-  width: inherit;
-  height: inherit;
+    background-color: #141414;
+    width: inherit;
+    height: inherit;
 }
 </style>
