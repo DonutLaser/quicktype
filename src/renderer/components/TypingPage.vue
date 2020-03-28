@@ -1,6 +1,6 @@
 <template>
 	<div id="typing-page">
-		<text-area :text="text" @type="onType($event)" @start="onStartPractice()" @end="onEndPractice()"></text-area>
+		<text-area :text="text" @type="onType($event)" @start="onStartPractice()" @end="onEndPractice($event)"></text-area>
     	<words-per-minute :typed="typedCharacters" :enableTimer="isPracticing"></words-per-minute>  
     	<version></version>
 	</div>
@@ -31,8 +31,10 @@
 			onStartPractice: function () {
 				this.isPracticing = true;
 			},
-			onEndPractice: function () {
+			onEndPractice: function (abort) {
 				this.isPracticing = false;
+
+				if (abort) { this.$emit('back-to-menu'); }
 			}
 		}
 	};

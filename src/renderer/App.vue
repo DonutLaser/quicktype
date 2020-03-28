@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <typing-page v-if="page === 'typing'" :text="currentText"></typing-page>
+        <typing-page v-if="page === 'typing'" :text="currentText" @back-to-menu="onTypingAbort"></typing-page>
         <home-page v-if="page === 'home'" @onClickNew="startTyping"></home-page>
     </div>
 </template>
@@ -34,6 +34,9 @@
                 this.getRandomText();
                 this.page = 'typing';
             },
+            onTypingAbort: function () {
+                this.page = 'home';
+            }
         },
     };
 </script>

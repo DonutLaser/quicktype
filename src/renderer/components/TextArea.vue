@@ -8,6 +8,8 @@
 	export default {
 		created: function () {
 			window.addEventListener('keypress', (e) => {
+				if (this.currentChar === this.text.length) { return; }
+				
 				const character = String.fromCharCode(e.charCode);
 				if (character === this.text[this.currentChar]) {
 					this.result.push('correct');
@@ -22,6 +24,12 @@
 				++this.currentChar;
 
 				this.$emit('type', this.currentChar);
+			});
+
+			window.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape') {
+					this.$emit('end', true);
+				}
 			});
 		},
 		props: ['text'],
