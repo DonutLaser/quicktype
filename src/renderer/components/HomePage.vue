@@ -1,5 +1,9 @@
 <template>
 	<div id="home-page">
+		<div id="primary-button-bar">
+			<new-paragraph-button></new-paragraph-button>
+			<new-custom-paragraph-button></new-custom-paragraph-button>
+		</div>
 		<div id="secondary-button-bar">
 			<settings-button></settings-button>
 			<help-button></help-button>
@@ -10,16 +14,27 @@
 <script>
 	import HelpButton from './HelpButton.vue';
 	import SettingsButton from './SettingsButton.vue';
+	import NewParagraphButton from './NewParagraphButton.vue';
+	import NewCustomParagraphButton from './NewCustomParagraphButton.vue';
 
 	export default {
 		components: {
 			HelpButton,
 			SettingsButton,
+			NewParagraphButton,
+			NewCustomParagraphButton,
 		},
 	};
 </script>
 
 <style scoped>
+	#primary-button-bar {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform:  translateY(-50%) translateX(-50%);
+		width: 22.5vw;
+	}
 	#secondary-button-bar {
 		position: absolute;
 		bottom: 30px;
