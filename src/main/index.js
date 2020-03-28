@@ -18,9 +18,11 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 563,
-    useContentSize: true,
     width: 1000,
+    height: 563,
+    minWidth: 700,
+    minHeight: 400,
+    useContentSize: true,
     webPreferences: {
       nodeIntegration: true,
       nodeIntegrationInWorker: true
@@ -32,7 +34,7 @@ function createWindow () {
 
   mainWindow.on('closed', () => {
     mainWindow = null
-  })
+  });
 }
 
 app.on('ready', createWindow)
