@@ -1,13 +1,15 @@
 <template>
     <div id="app">
-        <typing-page v-if="page === 'typing'"></typing-page>
-        <home-page v-if="page === 'home'"></home-page>
+        <typing-page v-if="page === 'typing'" :text="currentText"></typing-page>
+        <home-page v-if="page === 'home'" @onClickNew="startTyping"></home-page>
     </div>
 </template>
 
 <script>
     import TypingPage from './components/TypingPage.vue';
     import HomePage from './components/HomePage.vue';
+
+    import randomText from './../mixins/randomText';
 
     // Use font-awesome icons in the project
     import Vue from 'vue';
@@ -21,11 +23,18 @@
             TypingPage,
             HomePage,
         },
+        mixins: [randomText],
         data: function () {
             return {
                 page: 'home',
             };
-        }
+        },
+        methods: {
+            startTyping: function () {
+                this.getRandomText();
+                this.page = 'typing';
+            },
+        },
     };
 </script>
 

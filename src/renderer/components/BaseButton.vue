@@ -1,5 +1,5 @@
 <template>
-	<button id="btn">
+	<button id="btn" @click="onClick">
 		<vue-fontawesome :icon="icon" :size="1"></vue-fontawesome>
 		<template v-if="name">{{ name }}</template>
 	</button>
@@ -11,6 +11,9 @@
 			'name',
 			'icon'
 		],
+		methods: {
+			onClick: function () { this.$emit('click'); },
+		},
 	};
 </script>
 

@@ -1,7 +1,7 @@
 <template>
 	<div id="home-page">
 		<div id="primary-button-bar">
-			<new-paragraph-button></new-paragraph-button>
+			<new-paragraph-button @click="clickNewParagraph"></new-paragraph-button>
 			<new-custom-paragraph-button></new-custom-paragraph-button>
 		</div>
 		<div id="secondary-button-bar">
@@ -23,6 +23,9 @@
 			SettingsButton,
 			NewParagraphButton,
 			NewCustomParagraphButton,
+		},
+		methods: {
+			clickNewParagraph: function () { this.$emit('onClickNew'); },
 		},
 	};
 </script>

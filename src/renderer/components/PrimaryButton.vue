@@ -1,5 +1,5 @@
 <template>
-	<base-button :name="name"></base-button>	
+	<base-button :name="name" @click="onClick"></base-button>	
 </template>
 
 <script>
@@ -7,6 +7,9 @@
 	export default {
 		components: { BaseButton },
 		props: ['name'],
+		methods: {
+			onClick: function () { this.$emit('click'); },
+		},
 	};
 </script>
 

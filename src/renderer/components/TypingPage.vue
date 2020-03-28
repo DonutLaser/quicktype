@@ -1,6 +1,6 @@
 <template>
 	<div id="typing-page">
-		<text-area @type="onType($event)" @start="onStartPractice()" @end="onEndPractice()"></text-area>
+		<text-area :text="text" @type="onType($event)" @start="onStartPractice()" @end="onEndPractice()"></text-area>
     	<words-per-minute :typed="typedCharacters" :enableTimer="isPracticing"></words-per-minute>  
 	</div>
 </template>
@@ -14,6 +14,7 @@
 			TextArea,
 			WordsPerMinute,
 		},
+		props: ['text'],
 		data: function () {
 			return {
 				typedCharacters: 0,
