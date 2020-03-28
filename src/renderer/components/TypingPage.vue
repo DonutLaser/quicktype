@@ -2,17 +2,20 @@
 	<div id="typing-page">
 		<text-area :text="text" @type="onType($event)" @start="onStartPractice()" @end="onEndPractice()"></text-area>
     	<words-per-minute :typed="typedCharacters" :enableTimer="isPracticing"></words-per-minute>  
+    	<version></version>
 	</div>
 </template>
 
 <script>
 	import TextArea from './TextArea.vue';
 	import WordsPerMinute from './WordsPerMinute.vue';
+	import Version from './Version.vue';
 
 	export default {
 		components: {
 			TextArea,
 			WordsPerMinute,
+			Version,
 		},
 		props: ['text'],
 		data: function () {

@@ -8,6 +8,7 @@
 			<settings-button></settings-button>
 			<help-button></help-button>
 		</div>
+		<version></version>
 	</div>
 </template>
 
@@ -16,6 +17,7 @@
 	import SettingsButton from './SettingsButton.vue';
 	import NewParagraphButton from './NewParagraphButton.vue';
 	import NewCustomParagraphButton from './NewCustomParagraphButton.vue';
+	import Version from './Version.vue';
 
 	export default {
 		components: {
@@ -23,6 +25,7 @@
 			SettingsButton,
 			NewParagraphButton,
 			NewCustomParagraphButton,
+			Version,
 		},
 		methods: {
 			clickNewParagraph: function () { this.$emit('onClickNew'); },
