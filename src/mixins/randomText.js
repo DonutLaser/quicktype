@@ -1,4 +1,5 @@
 import axios from 'axios';
+import asciifolder from 'fold-to-ascii';
 
 export default {
 	data: function () {
@@ -14,8 +15,7 @@ export default {
 					title = resp.data.query.random[0].title.split('/')[0];
 					axios.get('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exsentences=5&explaintext=1&origin=*&titles=' + encodeURIComponent(title))	
 						.then(resp => {
-							console.log(resp);
-							this.currentText = resp.data.query.pages[Object.keys(resp.data.query.pages)[0]].extract;
+							this.currentText = asciifolder.foldReplacing(resp.data.query.pages[Object.keys(resp.data.query.pages)[0]].extract);
 						});
 				});
 		},
