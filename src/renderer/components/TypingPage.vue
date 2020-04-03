@@ -44,12 +44,15 @@
 				const data = { showStatus: this.showStatus };
 
 				if (stats) {
-					data.accuracy = Math.round((this.correctSymbolCount / this.text.length) * 100);
-					data.avgWpm = stats.avg;
-					data.minWpm = stats.min;
-					data.maxWpm = stats.max;
+					data.data = {
+						accuracy: Math.round((this.correctSymbolCount / this.text.length) * 100),
+						avgWpm: stats.avg,
+						minWpm: stats.min,
+						maxWpm: stats.max,
+					};
 				}
 
+				console.log(data);
 				this.$emit('back-to-menu', data);
 			},
 		}
