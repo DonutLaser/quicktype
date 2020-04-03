@@ -23,6 +23,9 @@
 		created: function () {
 			window.addEventListener('keypress', this.keypress);
 		},
+		destroyed: function () {
+			window.removeEventListener('keypress', this.keypress);
+		},
 		components: {
 			HelpButton,
 			SettingsButton,
