@@ -36,7 +36,7 @@
 		methods: {
 			clickNewParagraph: function () { this.$emit('onClickNew'); },
 			keypress: function (e) {
-				if (e.code === 'KeyN' && e.ctrlKey) { this.$emit('onClickNew'); }
+				if (e.code === 'KeyN' && e.ctrlKey) { this.clickNewParagraph(); }
 			}
 		},
 	};
