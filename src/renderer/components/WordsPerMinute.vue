@@ -30,11 +30,15 @@
                     clearInterval(this.timer);
 
                     this.wpmStats = this.wpmStats.filter(wpm => wpm > 0);
-                    const data = {
-                        avg: Math.round(this.wpmStats.reduce((accum, curr) => accum + curr) / this.wpmStats.length),
-                        min: Math.min(...this.wpmStats),
-                        max: Math.max(...this.wpmStats),
-                    };
+                    let data = null;
+
+                    if (this.wpmStats.length > 0) {
+                        data = {
+                            avg: Math.round(this.wpmStats.reduce((accum, curr) => accum + curr) / this.wpmStats.length),
+                            min: Math.min(...this.wpmStats),
+                            max: Math.max(...this.wpmStats),
+                        };
+                    }
 
                     this.$emit('stats-ready', data);
                 }

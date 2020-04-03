@@ -12,7 +12,22 @@
 <script>
 	export default {
 		created: function () {
-			window.addEventListener('keypress', (e) => {
+			window.addEventListener('keypress', this.keypress);
+			window.addEventListener('keydown', this.keydown);
+		},
+		destroyed: function () {
+			window.removeEventListener('keypress', this.keypress);
+			window.removeEventListener('keydown', this.keydown);
+		},
+		props: ['text'],
+		data: function () {
+			return {
+				currentChar: 0,
+				result: [],
+			};
+		},
+		methods: {
+			keypress: function (e) {
 				if (this.currentChar === this.text.length) { return; }
 				
 				const character = String.fromCharCode(e.charCode);
@@ -29,24 +44,12 @@
 				++this.currentChar;
 
 				this.$emit('type', this.currentChar);
-			});
-
-			window.addEventListener('keydown', (e) => {
+			},
+			keydown: function (e) {
 				if (e.key === 'Escape') {
-					this.$emit('end', { abort: true });
+					this.$emit('end', { abort: true, force: true });
 				}
-			});
-		},
-		destroyed: function () {
-			window.removeEventListener('keypress');
-			window.removeEventListener('keydown');
-		},
-		props: ['text'],
-		data: function () {
-			return {
-				currentChar: 0,
-				result: [],
-			};
+			}
 		},
 	};
 </script>

@@ -37,17 +37,18 @@
 				this.isPracticing = false;
 				this.correctSymbolCount = data.correctSymbols;
 				this.showStatus = !data.abort;
+
+				if (data.force) { this.$emit('back-to-menu', { showStatus: false }); }
 			},
 			backToMenu: function (stats) {
-				const data = {
-					showStatus: this.showStatus,
-					data: {
-						accuracy: Math.round((this.correctSymbolCount / this.text.length) * 100),
-						avgWpm: stats.avg,
-						minWpm: stats.min,
-						maxWpm: stats.max,
-					},
-				};
+				const data = { showStatus: this.showStatus };
+
+				if (stats) {
+					data.accuracy = Math.round((this.correctSymbolCount / this.text.length) * 100);
+					data.avgWpm = stats.avg;
+					data.minWpm = stats.min;
+					data.maxWpm = stats.max;
+				}
 
 				this.$emit('back-to-menu', data);
 			},
