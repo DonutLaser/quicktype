@@ -27,6 +27,12 @@
 <script>
 	import ContinueButton from './ContinueButton.vue';
 	export default {
+		created: function () {
+			window.addEventListener('keydown', this.keydown);
+		},
+		destroyed: function () {
+			window.removeEventListener('keydown', this.keydown);
+		},
 		components: {
 			ContinueButton,
 		},
@@ -35,6 +41,9 @@
 			clickContinue: function () {
 				this.$emit('back-to-menu', { showStatus: false });
 			},
+			keydown: function (e) {
+				if (e.key === 'Enter') { this.clickContinue(); }
+			}
 		},
 	};
 </script>
