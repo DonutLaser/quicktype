@@ -52,7 +52,6 @@
 					};
 				}
 
-				console.log(data);
 				this.$emit('back-to-menu', data);
 			},
 		}

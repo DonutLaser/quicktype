@@ -10,10 +10,18 @@
 </template>
 
 <script>
+	import { Howl } from 'howler';
+
 	export default {
 		created: function () {
 			window.addEventListener('keypress', this.keypress);
 			window.addEventListener('keydown', this.keydown);
+
+			this.keySound = new Howl({
+				src: ['./../../../sounds/key.mp3'],
+				autoplay: false,
+				loop: false,
+			});
 		},
 		destroyed: function () {
 			window.removeEventListener('keypress', this.keypress);
@@ -24,12 +32,15 @@
 			return {
 				currentChar: 0,
 				result: [],
+				keySound: null,
 			};
 		},
 		methods: {
 			keypress: function (e) {
 				if (this.currentChar === this.text.length) { return; }
-				
+
+				this.keySound.play();	
+
 				const character = String.fromCharCode(e.charCode);
 				if (character === this.text[this.currentChar]) {
 					this.result.push('correct');
