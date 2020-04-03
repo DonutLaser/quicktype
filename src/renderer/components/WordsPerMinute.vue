@@ -18,13 +18,26 @@
                         const end = now - this.startTime;
 
                         this.endTimeInMin = (end / 1000) / 60;
+
+                        this.wpmStats.push(this.wpm);
                     };
 
                     calculate();
 
                     this.startTime = new Date().getTime();
                     this.timer = setInterval(calculate, 1000);
-                } else { clearInterval(this.timer); }
+                } else {
+                    clearInterval(this.timer);
+
+                    this.wpmStats = this.wpmStats.filter(wpm => wpm > 0);
+                    const data = {
+                        avg: Math.round(this.wpmStats.reduce((accum, curr) => accum + curr) / this.wpmStats.length),
+                        min: Math.min(...this.wpmStats),
+                        max: Math.max(...this.wpmStats),
+                    };
+
+                    this.$emit('stats-ready', data);
+                }
             }
         },
         data: function () {
@@ -32,6 +45,7 @@
                 startTime: 0,
                 endTimeInMin: 0.0,
                 timer: null,
+                wpmStats: [],
             };
         },
         computed: {

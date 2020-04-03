@@ -1,6 +1,11 @@
 <template>
 	<div id="text-area" @keydown="onClick($event)">
-		<span v-for="(character, index) in text" :class="{ ready: currentChar === index, correct: result[index] === 'correct', incorrect: result[index] === 'incorrect' }">{{ character }}</span>
+		<span v-for="(character, index) in text" :class="{ 
+			ready: currentChar === index, 
+			correct: result[index] === 'correct',
+			incorrect: result[index] === 'incorrect',
+			incorrectSpace: result[index] === 'incorrect' && character === ' '
+		}">{{ character }}</span>
 	</div>
 </template>
 
@@ -18,7 +23,7 @@
 				if (this.currentChar === 0) {
 					this.$emit('start');
 				} else if (this.currentChar === this.text.length - 1) {
-					this.$emit('end');
+					this.$emit('end', { abort: false, correctSymbols: this.result.filter(r => r === 'correct').length });
 				}
 
 				++this.currentChar;
@@ -28,9 +33,13 @@
 
 			window.addEventListener('keydown', (e) => {
 				if (e.key === 'Escape') {
-					this.$emit('end', true);
+					this.$emit('end', { abort: true });
 				}
 			});
+		},
+		destroyed: function () {
+			window.removeEventListener('keypress');
+			window.removeEventListener('keydown');
 		},
 		props: ['text'],
 		data: function () {
@@ -71,6 +80,10 @@
 
 .incorrect {
 	color: #d94c2b;
+}
+
+.incorrectSpace {
+	border-bottom: 2px solid #d94c2b;
 }
 
 .ready {

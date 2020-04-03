@@ -2,12 +2,14 @@
     <div id="app">
         <typing-page v-if="page === 'typing'" :text="currentText" @back-to-menu="onTypingAbort"></typing-page>
         <home-page v-if="page === 'home'" @onClickNew="startTyping"></home-page>
+        <stats-page v-if="page === 'stats'" :data="typingStats" @back-to-menu="onTypingAbort"></stats-page>
     </div>
 </template>
 
 <script>
     import TypingPage from './components/TypingPage.vue';
     import HomePage from './components/HomePage.vue';
+    import StatsPage from './components/StatsPage.vue';
 
     import randomText from './../mixins/randomText';
 
@@ -22,11 +24,13 @@
         components: {
             TypingPage,
             HomePage,
+            StatsPage,
         },
         mixins: [randomText],
         data: function () {
             return {
                 page: 'home',
+                typingStats: null,
             };
         },
         methods: {
@@ -34,9 +38,11 @@
                 this.getRandomText();
                 this.page = 'typing';
             },
-            onTypingAbort: function () {
-                this.page = 'home';
-            }
+            onTypingAbort: function (stats) {
+                this.page = stats.showStatus ? 'stats' : 'home';
+
+                if (stats.data) { this.typingStats = stats.data; }
+            },
         },
     };
 </script>
