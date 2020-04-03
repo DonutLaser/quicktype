@@ -20,6 +20,9 @@
 	import Version from './Version.vue';
 
 	export default {
+		created: function () {
+			window.addEventListener('keypress', this.keypress);
+		},
 		components: {
 			HelpButton,
 			SettingsButton,
@@ -29,6 +32,9 @@
 		},
 		methods: {
 			clickNewParagraph: function () { this.$emit('onClickNew'); },
+			keypress: function (e) {
+				if (e.code === 'KeyN' && e.ctrlKey) { this.$emit('onClickNew'); }
+			}
 		},
 	};
 </script>
