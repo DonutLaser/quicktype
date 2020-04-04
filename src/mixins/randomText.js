@@ -13,7 +13,7 @@ export default {
 			const title = titleResp.data.query.random[0].title.split('/')[0]; // The title has several for some reason, e.g., Title1/Title2/Title3, so pick the first one
 
 			const textResp = await axios.get('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exsentences=5&explaintext=1&origin=*&titles=' + encodeURIComponent(title));
-			this.currentText = asciifolder.foldReplacing(textResp.data.query.pages[Object.keys(textResp.data.query.pages)[0]].extract).replace(/==|===/g, '~');
+			this.currentText = asciifolder.foldReplacing(textResp.data.query.pages[Object.keys(textResp.data.query.pages)[0]].extract);
 		},
 	},
 };
