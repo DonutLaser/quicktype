@@ -7,9 +7,9 @@
 </template>
 
 <script>
-	import TextArea from './TextArea.vue';
-	import WordsPerMinute from './WordsPerMinute.vue';
-	import Version from './Version.vue';
+	import TextArea from './TextArea';
+	import WordsPerMinute from './WordsPerMinute';
+	import Version from './Version';
 
 	export default {
 		components: {

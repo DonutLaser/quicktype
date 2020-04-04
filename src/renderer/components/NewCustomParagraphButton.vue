@@ -3,7 +3,7 @@
 </template>
 
 <script>
-	import PrimaryButton from './PrimaryButton.vue';
+	import PrimaryButton from './PrimaryButton';
 
 	export default {
 		components: { PrimaryButton }

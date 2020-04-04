@@ -25,7 +25,7 @@
 </template>
 
 <script>
-	import ContinueButton from './ContinueButton.vue';
+	import ContinueButton from './ContinueButton';
 	export default {
 		created: function () {
 			window.addEventListener('keydown', this.keydown);

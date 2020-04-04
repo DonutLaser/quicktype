@@ -13,11 +13,11 @@
 </template>
 
 <script>
-	import HelpButton from './HelpButton.vue';
-	import SettingsButton from './SettingsButton.vue';
-	import NewParagraphButton from './NewParagraphButton.vue';
-	import NewCustomParagraphButton from './NewCustomParagraphButton.vue';
-	import Version from './Version.vue';
+	import HelpButton from './HelpButton';
+	import SettingsButton from './SettingsButton';
+	import NewParagraphButton from './NewParagraphButton';
+	import NewCustomParagraphButton from './NewCustomParagraphButton';
+	import Version from './Version';
 
 	export default {
 		created: function () {

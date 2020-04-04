@@ -7,9 +7,9 @@
 </template>
 
 <script>
-    import TypingPage from './components/TypingPage.vue';
-    import HomePage from './components/HomePage.vue';
-    import StatsPage from './components/StatsPage.vue';
+    import TypingPage from './components/TypingPage';
+    import HomePage from './components/HomePage';
+    import StatsPage from './components/StatsPage';
 
     import randomText from './../mixins/randomText';
 

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-	import BaseButton from './BaseButton.vue';
+	import BaseButton from './BaseButton';
 	export default {
 		components: { BaseButton },
 		props: ['icon'],
