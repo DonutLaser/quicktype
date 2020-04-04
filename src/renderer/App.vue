@@ -39,6 +39,7 @@
                 this.page = 'typing';
             },
             onTypingAbort: function (stats) {
+                this.currentText = '';
                 this.page = stats.showStatus ? 'stats' : 'home';
 
                 if (stats.data) { this.typingStats = stats.data; }
