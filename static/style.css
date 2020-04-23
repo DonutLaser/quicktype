@@ -7,3 +7,15 @@ html, body {
 	width: 100%;
 	height: 100%;
 }
+
+.outer-container {
+	background-color: #444343;
+	border-radius: 10px;
+	box-shadow: 0 3px #282828;
+}
+
+.inner-container {
+	background-color: #373636;
+	border-radius: 10px;
+	box-shadow: inset 0 3px #282828;
+}

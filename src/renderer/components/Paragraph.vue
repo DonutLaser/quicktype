@@ -1,21 +1,22 @@
 <template>
-	<div id="text-area" @keydown="onClick($event)">
-		<span v-for="(character, index) in text" :class="{ 
-			ready: currentChar === index, 
+	<div id="paragraph" class="inner-container" :class="{ center: display === 'center', left: display === 'left' }">
+		<span v-for="(character, index) in text" :class="{
+			ready: currentChar === index,
 			correct: result[index] === 'correct',
 			incorrect: result[index] === 'incorrect',
 			incorrectSpace: result[index] === 'incorrect' && character === ' '
-		}">{{ character }}</span>
+		}">{{ character }}</span>	
 	</div>
 </template>
 
 <script>
-	import { Howl } from 'howler';
+	import { Howl } from 'Howler';
+
+	import { eventBus } from './../main';
 
 	export default {
 		created: function () {
 			window.addEventListener('keypress', this.keypress);
-			window.addEventListener('keydown', this.keydown);
 
 			this.keySound = new Howl({
 				src: ['./../../../sounds/key.mp3'],
@@ -25,60 +26,79 @@
 		},
 		destroyed: function () {
 			window.removeEventListener('keypress', this.keypress);
-			window.removeEventListener('keydown', this.keydown);
 		},
 		props: ['text'],
+		watch: {
+			text: function () {
+				this.result.length = 0;
+				this.currentChar = 0;
+				this.display = 'center';
+
+				eventBus.$emit('resetStats');
+			},
+		},
 		data: function () {
 			return {
 				currentChar: 0,
 				result: [],
 				keySound: null,
+				display: 'center', 
 			};
 		},
 		methods: {
 			keypress: function (e) {
 				if (this.currentChar === this.text.length) { return; }
 
-				this.keySound.play();	
+				this.keySound.play();
 
 				const character = String.fromCharCode(e.charCode);
 				if (character === this.text[this.currentChar]) {
 					this.result.push('correct');
 				} else { this.result.push('incorrect'); }
 
+				eventBus.$emit('typedCharacter');
+
 				if (this.currentChar === 0) {
-					this.$emit('start');
+					eventBus.$emit('startTyping');
 				} else if (this.currentChar === this.text.length - 1) {
-					this.$emit('end', { abort: false, correctSymbols: this.result.filter(r => r === 'correct').length });
+					eventBus.$emit('endTyping',{
+						correctCharCount: this.result.filter(r => r === 'correct').length,
+					});
+					this.display = 'left';
 				}
 
 				++this.currentChar;
-
-				this.$emit('type', this.currentChar);
 			},
-			keydown: function (e) {
-				if (e.key === 'Escape') {
-					this.$emit('end', { abort: true, force: true });
-				}
-			}
-		},
+		}
 	};
 </script>
 
 <style scoped>
-#text-area {
+.center {
 	position: absolute;
 	left: 50%;
-	top: 10%;
-	transform: translateX(-50%);
+	top: 50%;
+	transform:  translateX(-50%) translateY(-50%);
+}
 
-	width: 69%;
-	height: 62%;
+.left {
+	position: absolute;
+	left: 38%;
+	top: 50%;
+	transform:  translateX(-50%) translateY(-50%);
+}
+
+#paragraph {
+	display: block;
+
+	width: 55%;
+	height: 59%;
+	min-width: 55%;
+	min-height: 59%;
 
 	font-family: consolas;
 	font-weight: bold;
-	font-size: 1.5vw;
-	line-height: 1.5;
+	font-size: calc(1.1vw + 0.55vh);
 	color: #a4a4a4;
 
 	text-align: justify;
@@ -86,6 +106,8 @@
 
 	user-select: none;
 	cursor: default;
+
+	padding: 22px;
 }
 
 .correct {
@@ -104,3 +126,4 @@
 	color: #d9be2b;
 }
 </style>
+		

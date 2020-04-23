@@ -1,59 +1,52 @@
 <template>
 	<div id="typing-page">
-		<text-area :text="text" @type="onType($event)" @start="onStartPractice()" @end="onEndPractice($event)"></text-area>
-    	<words-per-minute :typed="typedCharacters" :enableTimer="isPracticing" @stats-ready="backToMenu($event)"></words-per-minute>  
-    	<version></version>
+		<paragraph :text="currentText"></paragraph>
+		<stats></stats>		
 	</div>
 </template>
 
 <script>
-	import TextArea from './TextArea';
-	import WordsPerMinute from './WordsPerMinute';
-	import Version from './Version';
+	import Paragraph from './Paragraph';
+	import Stats from './Stats';
+
+	import randomText from './../../mixins/randomText';
 
 	export default {
 		components: {
-			TextArea,
-			WordsPerMinute,
-			Version,
+			Paragraph,
+			Stats,
 		},
-		props: ['text'],
-		data: function () {
-			return {
-				typedCharacters: 0,
-				correctSymbolCount: 0,
-				showStatus: true,
-				isPracticing: false,
-			};
+		mixins: [randomText],
+		props: ['mode'],
+		watch: {
+			mode: {
+				handler: function (newValue) {
+					if (!newValue) {
+						this.currentText = '';
+						return;
+					}
+
+					if (newValue === 'single') {
+						this.getRandomText();
+					}
+				},
+				immediate: true,
+			},
 		},
-		methods: {
-			onType: function (typed) {
-				this.typedCharacters = typed;
-			},
-			onStartPractice: function () {
-				this.isPracticing = true;
-			},
-			onEndPractice: function (data) {
-				this.isPracticing = false;
-				this.correctSymbolCount = data.correctSymbols;
-				this.showStatus = !data.abort;
-
-				if (data.force) { this.$emit('back-to-menu', { showStatus: false }); }
-			},
-			backToMenu: function (stats) {
-				const data = { showStatus: this.showStatus };
-
-				if (stats) {
-					data.data = {
-						accuracy: Math.round((this.correctSymbolCount / this.text.length) * 100),
-						avgWpm: stats.avg,
-						minWpm: stats.min,
-						maxWpm: stats.max,
-					};
-				}
-
-				this.$emit('back-to-menu', data);
-			},
-		}
 	};
 </script>
+
+<style scoped>
+#typing-page {
+	width: 100%;
+	height: 100%;
+}
+
+/*#container {
+	display: inline-block;
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}*/
+</style>
