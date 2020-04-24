@@ -4,6 +4,8 @@
 			ready: currentChar === index,
 			correct: result[index] === 'correct',
 			incorrect: result[index] === 'incorrect',
+			space: character === ' ' && currentChar === index,
+			readySpace: character === ' ',
 			incorrectSpace: result[index] === 'incorrect' && character === ' '
 		}">{{ character }}</span>	
 	</div>
@@ -116,6 +118,14 @@
 
 .incorrect {
 	color: #d94c2b;
+}
+
+.space {
+	border-bottom: 2px solid #ffffff;
+}
+
+.readySpace {
+	border-color: #d9be2b;
 }
 
 .incorrectSpace {
