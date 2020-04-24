@@ -26,7 +26,8 @@ function createWindow () {
     webPreferences: {
       nodeIntegration: true,
       nodeIntegrationInWorker: true
-    }
+    },
+    icon: 'build/icons/256x256.png',
   })
 
   mainWindow.loadURL(winURL)
